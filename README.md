@@ -8,5 +8,15 @@ http://wiki.dfrobot.com.cn/index.php?title=%28SKU:DFR0305%29RoMeo_BLE%E6%8E%A7%E
 开发环境 Arduino IDE：
 https://www.arduino.cc/en/Main/Software
 
+Arduino IDE设置：
+选择"工具"->开发板选择->"arduino/Genuino Uno"
+选择"工具"->端口->例"COM4"                  
+Ctrl+R 编译
+Ctrl+U 上传
+
 编程语言：
 http://www.arduino.cn/reference/
+
+函数
+setup() 初始化程序
+loop()  主循环函数
