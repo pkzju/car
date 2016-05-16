@@ -21,12 +21,18 @@ typedef int                S32;
 typedef unsigned int       U32;
 typedef long long          S64;
 typedef unsigned long long U64;
-// Protocal Version
-#define PROTOCAL_HEADER                0x5A
 
+#define PROTOCAL_tHeader        0x5A
+#define S_IDLE     0
+#define S_tHeader   1
+#define S_LEN      2
+#define S_VERSION  3
+#define S_PAYLOAD  4
+#define S_CRC      5
 /**************************************** CMD List **********************************************/
 
-#define CMD_ID_SENSOR_INFO                     0x40
+#define CMD_ID_POSITION_INFO      0x40
+#define CMD_ID_POSITION_NO        0x20
 
 /**************************************** Data Struct ****************************************/
 
@@ -34,14 +40,13 @@ typedef unsigned long long U64;
 #pragma pack(1)
 typedef struct
 {
-    unsigned char     flag;
-    unsigned char     length;
-    unsigned char     seq_num:1;
-    unsigned char     type:3;
-    unsigned char     id:2;
-    unsigned char     cmd:2;
+    char     flag;
+    char     cmd;
+    char     p_x;
+    char     p_y;
+    char     p_z;
     unsigned char     crc8;
-}tHeader;      //common header
+}tHeader;      
 #pragma pack(pop)
 
 #pragma pack(push)
@@ -69,11 +74,12 @@ extern "C"
 {
 #endif
 
-#define PROTOCAL_FRAME_MAX_SIZE  256
+#define PROTOCAL_FRAME_MAX_SIZE  50
 
 unsigned char FrameUnpack(unsigned char token, unsigned char* pBuffer);
-unsigned char  FramePack(unsigned char* pDataIn, unsigned char len, unsigned char* pDataOut);
-
+unsigned char FramePack(unsigned char* pData);
+//unsigned char  FramePack(unsigned char* pDataIn, unsigned char len, unsigned char* pDataOut);
+unsigned char* ScanHeader(unsigned char pData);
 #ifdef  __cpluscplus
 }
 #endif
